@@ -1,0 +1,39 @@
+name: CBC Print Media Monitor
+
+on:
+  schedule:
+    # 10:00 AM IST = 04:30 AM UTC (IST is UTC+5:30). GitHub Actions cron is
+    # always in UTC, so this line is what actually controls the daily time.
+    - cron: "30 4 * * *"
+  workflow_dispatch: {}   # lets you trigger a run manually from the Actions tab for testing
+
+jobs:
+  check-print-media:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Run CBC monitor script
+        env:
+          TARGET_URL: ${{ secrets.TARGET_URL }}
+          # Email (optional — only needed if you want email alerts)
+          SMTP_HOST: ${{ secrets.SMTP_HOST }}
+          SMTP_PORT: ${{ secrets.SMTP_PORT }}
+          SMTP_USER: ${{ secrets.SMTP_USER }}
+          SMTP_PASSWORD: ${{ secrets.SMTP_PASSWORD }}
+          ALERT_EMAIL_TO: ${{ secrets.ALERT_EMAIL_TO }}
+          # Telegram (optional — only needed if you want Telegram alerts)
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+        run: python scraper.py
