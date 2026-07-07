@@ -31,7 +31,7 @@ TARGET_URL = os.environ.get("TARGET_URL", "https://example-cbc-url.com/signup")
 DROPDOWN_LABEL_TEXT = "Select Vendor/Partner Category"
 
 # The option text we are watching for.
-TARGET_OPTION_TEXT = "Print Media"
+TARGET_OPTION_TEXT = "AV"
 
 # How the script identifies the dropdown element. Update these once you
 # inspect the real page's HTML (view-source or browser DevTools).
