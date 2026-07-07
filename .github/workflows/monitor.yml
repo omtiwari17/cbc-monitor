@@ -27,13 +27,8 @@ jobs:
       - name: Run CBC monitor script
         env:
           TARGET_URL: ${{ secrets.TARGET_URL }}
-          # Email (optional — only needed if you want email alerts)
-          SMTP_HOST: ${{ secrets.SMTP_HOST }}
-          SMTP_PORT: ${{ secrets.SMTP_PORT }}
-          SMTP_USER: ${{ secrets.SMTP_USER }}
-          SMTP_PASSWORD: ${{ secrets.SMTP_PASSWORD }}
-          ALERT_EMAIL_TO: ${{ secrets.ALERT_EMAIL_TO }}
-          # Telegram (optional — only needed if you want Telegram alerts)
+          # Email is disabled (Telegram-only setup) — SMTP_* secrets not needed.
+          # Telegram
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
           TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
         run: python scraper.py

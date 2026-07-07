@@ -234,7 +234,10 @@ def send_alerts(current_options: list[str]) -> None:
         "Go register now before the window closes."
     )
 
-    email_sent = send_email_alert(subject, body)
+    # Email alerts disabled — using Telegram only. To re-enable, uncomment
+    # the two lines below and add the SMTP_* secrets back in GitHub.
+    # email_sent = send_email_alert(subject, body)
+    email_sent = False
     telegram_sent = send_telegram_alert(f"*{subject}*\n\n{body}")
 
     if not email_sent and not telegram_sent:
